@@ -893,6 +893,7 @@ class ReactExoplayerView extends FrameLayout implements
             boolean isOriginalSourceNull = srcUri == null;
             boolean isSourceEqual = uri.equals(srcUri);
 
+            this.srcUri = DataSourceUtil.getCacheUri(uri, this.themedReactContext);
             this.srcUri = uri;
             this.extension = extension;
             this.requestHeaders = headers;
