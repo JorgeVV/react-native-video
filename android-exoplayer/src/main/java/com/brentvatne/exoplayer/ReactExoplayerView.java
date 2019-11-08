@@ -894,7 +894,6 @@ class ReactExoplayerView extends FrameLayout implements
             boolean isSourceEqual = uri.equals(srcUri);
 
             this.srcUri = DataSourceUtil.getCacheUri(uri, this.themedReactContext);
-            this.srcUri = uri;
             this.extension = extension;
             this.requestHeaders = headers;
             this.mediaDataSourceFactory =
