@@ -87,8 +87,8 @@ public class DataSourceUtil {
     public static Uri getCacheUri(Uri uri, Context context) {
         if (proxy == null) {
             proxy = new HttpProxyCacheServer.Builder(context)
-                .maxCacheSize(1024 * 1024 * 512)
-                .maxCacheFilesCount(20)
+                .maxCacheSize(1024 * 1024 * 1024)
+                .maxCacheFilesCount(200)
                 .build();
         }
         String uriString = uri.toString();
