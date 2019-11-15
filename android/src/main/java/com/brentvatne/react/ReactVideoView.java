@@ -42,6 +42,7 @@ import java.math.BigDecimal;
 
 import javax.annotation.Nullable;
 
+import android.content.Context;
 import com.danikula.videocache.HttpProxyCacheServer;
 
 @SuppressLint("ViewConstructor")
@@ -107,6 +108,8 @@ public class ReactVideoView extends ScalableVideoView implements
     public static final String EVENT_PROP_ERROR = "error";
     public static final String EVENT_PROP_WHAT = "what";
     public static final String EVENT_PROP_EXTRA = "extra";
+
+    private static HttpProxyCacheServer proxy = null;
 
     private ThemedReactContext mThemedReactContext;
     private RCTEventEmitter mEventEmitter;
