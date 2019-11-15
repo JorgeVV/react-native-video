@@ -42,6 +42,8 @@ import java.math.BigDecimal;
 
 import javax.annotation.Nullable;
 
+import com.danikula.videocache.HttpProxyCacheServer;
+
 @SuppressLint("ViewConstructor")
 public class ReactVideoView extends ScalableVideoView implements
     MediaPlayer.OnPreparedListener,
@@ -278,7 +280,7 @@ public class ReactVideoView extends ScalableVideoView implements
                 // set by WebViews inside the same app
                 CookieManager cookieManager = CookieManager.getInstance();
 
-                Uri parsedUrl = Uri.parse(uriString);
+                Uri parsedUrl = getCacheUri(Uri.parse(uriString), mThemedReactContext);
                 Uri.Builder builtUrl = parsedUrl.buildUpon();
 
                 String cookie = cookieManager.getCookie(builtUrl.build().toString());
@@ -780,5 +782,19 @@ public class ReactVideoView extends ScalableVideoView implements
                 }
             }
         } catch (Exception e) {}
+    }
+
+    public static Uri getCacheUri(Uri uri, Context context) {
+        if (proxy == null) {
+            proxy = new HttpProxyCacheServer.Builder(context)
+                .maxCacheSize(1024 * 1024 * 1024)
+                .maxCacheFilesCount(200)
+                .build();
+        }
+        String uriString = uri.toString();
+        if (uriString.startsWith("https://") || uriString.startsWith("http://")) {
+            return Uri.parse(proxy.getProxyUrl(uriString));
+        }
+        return uri;
     }
 }
